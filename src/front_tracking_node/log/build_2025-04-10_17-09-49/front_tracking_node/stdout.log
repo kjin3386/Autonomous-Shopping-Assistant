@@ -1,0 +1,37 @@
+running egg_info
+creating build/front_tracking_node/front_tracking_node.egg-info
+writing build/front_tracking_node/front_tracking_node.egg-info/PKG-INFO
+writing dependency_links to build/front_tracking_node/front_tracking_node.egg-info/dependency_links.txt
+writing entry points to build/front_tracking_node/front_tracking_node.egg-info/entry_points.txt
+writing requirements to build/front_tracking_node/front_tracking_node.egg-info/requires.txt
+writing top-level names to build/front_tracking_node/front_tracking_node.egg-info/top_level.txt
+writing manifest file 'build/front_tracking_node/front_tracking_node.egg-info/SOURCES.txt'
+reading manifest file 'build/front_tracking_node/front_tracking_node.egg-info/SOURCES.txt'
+writing manifest file 'build/front_tracking_node/front_tracking_node.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node
+copying front_tracking_node/__init__.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node
+copying front_tracking_node/front_camera.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node
+running install
+running install_lib
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node
+copying /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node/__init__.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node
+copying /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node/front_camera.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node
+byte-compiling /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node/front_camera.py to front_camera.cpython-310.pyc
+running install_data
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index/resource_index
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index/resource_index/packages
+copying resource/front_tracking_node -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index/resource_index/packages
+copying package.xml -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/front_tracking_node
+creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/front_tracking_node/launch
+copying launch/front_camera.launch.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/front_tracking_node/launch
+running install_egg_info
+Copying build/front_tracking_node/front_tracking_node.egg-info to /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node-0.0.0-py3.10.egg-info
+running install_scripts
+Installing front_camera script to /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/front_tracking_node
+writing list of installed files to '/home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/install.log'

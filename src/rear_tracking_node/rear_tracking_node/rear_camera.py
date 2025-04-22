@@ -1,0 +1,229 @@
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from rear_tracking_interfaces.msg import UserPolar
+from geometry_msgs.msg import PointStamped
+import math
+
+import pyrealsense2 as rs
+import numpy as np
+import cv2
+import random
+from ultralytics import YOLO
+from deep_sort_realtime.deepsort_tracker import DeepSort
+
+
+class RearTrackingNode(Node):
+    def __init__(self):
+        super().__init__('rear_tracking_node')
+
+        # USE DEBUGING VIEW (True/False)
+        self.debug_view = False
+        
+        # SELECT CAMERA (use serial number of camera / checking serial number cmd : rs-enumerate-devices)
+        DESIRED_SERIAL = '048522074847'
+        
+        # PUBLISHER
+        self.publisher = self.create_publisher(UserPolar, 'user_polar_info', 10)
+        self.rviz_pub = self.create_publisher(PointStamped, 'user_polar_point', 10)
+        
+        # Yolo init
+        self.model = YOLO("yolov8n-seg.pt")
+        self.conf = 0.3
+        self.target_classes = ["person"]
+        
+        # DEEP SORT init
+        self.tracker = DeepSort(max_age=300)
+        self.id_colors = {}
+        
+        # Camera init
+        self.pipeline = rs.pipeline()
+        config = rs.config()
+        config.enable_device(DESIRED_SERIAL)
+        config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
+        config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+        self.pipeline.start(config)
+        self.align = rs.align(rs.stream.color)
+
+        self.timer = self.create_timer(0.1, self.process_frame)  # 20Hz
+
+    def process_frame(self):
+    
+        # GET CAMERA FRAMES
+        frames = self.pipeline.wait_for_frames() # BOTH RGB&DEPTH
+        aligned_frames = self.align.process(frames)
+        depth_frame = aligned_frames.get_depth_frame()
+        color_frame = aligned_frames.get_color_frame()
+
+        if not depth_frame or not color_frame:
+            print("ONE OF THE FRAMES DOESN'T CAME")
+            return
+
+        # CHANGE IMAGE DATA TO NUMPY ARRAY.
+        depth_image = np.asanyarray(depth_frame.get_data())
+        color_image = np.asanyarray(color_frame.get_data())
+        frame = color_image.copy()
+        img_width = color_image.shape[1]
+        fov = 87  # D435i Horizon angle
+
+        # GET SEGMENTATION 
+        results = self.model.predict(color_image, conf=self.conf, imgsz=320)
+        detections_yolo = []
+        mask_info = []
+        mask_only = []
+
+
+        for result in results:
+            if result.masks is None or result.boxes is None:
+                continue
+
+            for mask, box in zip(result.masks.xy, result.boxes):
+                cls_id = int(box.cls[0])
+                class_name = self.model.names[cls_id]
+
+                if class_name != "person":
+                    continue
+
+                # EXTRACT BBOX AS [cx,cy,w,h]
+                bbox_xywh = box.xywh[0].cpu().numpy() if hasattr(box.xywh[0], 'cpu') else box.xywh[0]
+                cx, cy, w, h = bbox_xywh
+                conf_score = float(box.conf[0])
+                detections_yolo.append(([cx, cy, w, h], conf_score, class_name))
+                mask_only.append(mask)
+                
+
+
+        # TRACKING BY DEEPSORT
+        tracks = self.tracker.update_tracks(detections_yolo, frame=frame, others=mask_only)
+    
+    
+        # TRACKING RESULTS INIT
+        person_found = False
+        closest_r = float('inf')
+        person_r = 0.0
+        person_theta = 0.0
+
+        for track in tracks:
+            #USE CONFIRMED TRACK. ELSE:CONTINUE
+            if not track.is_confirmed() or track.time_since_update > 1:
+                continue
+                
+            track_id = track.track_id
+
+            # USE ONLY ID:1 TRACK
+            if track_id != '1':
+                print("Lost User",track_id)
+                continue
+
+            l, t, w, h = track.to_ltwh()
+            # l -> center of bbox, x coordinate value
+            # t -> center of bbox, y coordinate value
+            cx = l
+            cy = t
+            
+            matched_mask = track.others 
+            
+            if matched_mask is None:
+                self.get_logger().warning(f"ID {track.track_id} has no mask. Skipping...")
+                continue
+            
+            # CALCULATE AVGERAGE DEPTH BY SEGMENTATION
+            points = np.int32([matched_mask])
+            mask_poly = np.zeros_like(depth_image, dtype=np.uint8)
+            cv2.fillPoly(mask_poly, points, 255)
+            masked_depth = cv2.bitwise_and(depth_image, depth_image, mask=mask_poly)
+            nonzero = np.count_nonzero(masked_depth)
+            average_depth = np.sum(masked_depth) / nonzero if nonzero > 0 else 0
+
+           
+            # SET RANDOM COLOR FOR EACH OBJECT
+            #if track_id not in self.id_colors:
+            #    self.id_colors[track_id] = (
+            #        random.randint(0, 255),
+            #        random.randint(0, 255),
+            #        random.randint(0, 255)
+            #    )
+            #color = self.id_colors[track_id]
+            
+            # SET COLOR FOR OBJECT
+            color = (0,200,0)
+
+
+            #x1, y1, x2, y2 = int(l), int(t), int(l + w), int(t + h)
+            x1 = int(l - w/2)
+            y1 = int(t - h/2)
+            x2 = int(l + w/2)
+            y2 = int(t + h/2)
+
+            # CALCULATE POLAR COORDINATE
+            r_meters = round(average_depth / 1000.0, 2)
+            theta_deg = ((cx - img_width / 2) / (img_width / 2)) * (fov / 2)
+
+            # SELECT NEAREST PERSON
+            if 0 < r_meters < closest_r:
+                closest_r = r_meters
+                person_r = r_meters
+                person_theta = theta_deg
+                person_found = True
+
+            # DEBUG VIEW
+            if self.debug_view:
+                cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+                label = f"ID:{track_id}, {r_meters:.2f}m"
+                cv2.putText(frame, label, (x1, y1 - 10),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+                overlay_mask = np.zeros_like(frame, dtype=np.uint8)
+                cv2.fillPoly(overlay_mask, [np.int32(matched_mask)], color)
+                frame = cv2.addWeighted(frame, 1.0, overlay_mask, 0.4, 0)
+                
+
+        # PUBLISH CUSTOM MESSAGE
+        # UserPolar: detected person's distance & angle 
+        msg = UserPolar()
+        msg.detected = person_found
+        msg.distance_m = float(person_r)
+        msg.angle_deg = float(person_theta)
+        self.publisher.publish(msg)
+
+        # PUBLISH RVIZ POINT
+        # PointStamped: convert to 2D coordinate to visualize at rviz
+        if person_found:
+            x = person_r * math.cos(math.radians(person_theta))
+            y = person_r * math.sin(math.radians(person_theta))
+
+            point_msg = PointStamped()
+            point_msg.header.stamp = self.get_clock().now().to_msg()
+            point_msg.header.frame_id = "base_link"
+            point_msg.point.x = -x
+            point_msg.point.y = y
+            point_msg.point.z = 0.0
+            self.rviz_pub.publish(point_msg)
+
+            #self.get_logger().info(f"[RVIZ] Point: x={x:.2f}, y={y:.2f}")
+
+        # DEBUG VIEW OUTPUT
+        if self.debug_view:
+            cv2.imshow("Rear Tracking View", frame)
+            cv2.waitKey(1)
+
+        # CONSOLE LOG
+        #self.get_logger().info(f"[PUB] Detected: {msg.detected}, Distance: {msg.distance_m:.2f}m, Angle: {msg.angle_deg:.2f}°")
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = RearTrackingNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+        cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    main()
+

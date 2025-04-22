@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>front_tracking_node</name>
+  <version>0.0.0</version>
+  <description>Front tracking node for multi-person tracking using RGB-D camera.</description>
+  <maintainer email="incsl-wego22@todo.todo">incsl-wego22</maintainer>
+  <license>TODO: License declaration</license>
+
+  <!-- 필요한 의존성 -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>front_tracking_interfaces</exec_depend>
+
+  <!-- 테스트 관련 -->
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
+

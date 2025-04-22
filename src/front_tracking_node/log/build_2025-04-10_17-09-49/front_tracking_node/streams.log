@@ -1,0 +1,39 @@
+[0.402s] Invoking command in '/home/incsl-wego22/ws_capstone/src/front_tracking_node': PYTHONPATH=/home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/front_tracking_node build --build-base /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build install --record /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/install.log --single-version-externally-managed install_data
+[0.552s] running egg_info
+[0.552s] creating build/front_tracking_node/front_tracking_node.egg-info
+[0.552s] writing build/front_tracking_node/front_tracking_node.egg-info/PKG-INFO
+[0.552s] writing dependency_links to build/front_tracking_node/front_tracking_node.egg-info/dependency_links.txt
+[0.553s] writing entry points to build/front_tracking_node/front_tracking_node.egg-info/entry_points.txt
+[0.553s] writing requirements to build/front_tracking_node/front_tracking_node.egg-info/requires.txt
+[0.553s] writing top-level names to build/front_tracking_node/front_tracking_node.egg-info/top_level.txt
+[0.553s] writing manifest file 'build/front_tracking_node/front_tracking_node.egg-info/SOURCES.txt'
+[0.553s] reading manifest file 'build/front_tracking_node/front_tracking_node.egg-info/SOURCES.txt'
+[0.554s] writing manifest file 'build/front_tracking_node/front_tracking_node.egg-info/SOURCES.txt'
+[0.554s] running build
+[0.554s] running build_py
+[0.554s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build
+[0.554s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib
+[0.554s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node
+[0.554s] copying front_tracking_node/__init__.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node
+[0.554s] copying front_tracking_node/front_camera.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node
+[0.554s] running install
+[0.554s] running install_lib
+[0.555s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node
+[0.555s] copying /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node/__init__.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node
+[0.555s] copying /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build/lib/front_tracking_node/front_camera.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node
+[0.555s] byte-compiling /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node/__init__.py to __init__.cpython-310.pyc
+[0.555s] byte-compiling /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node/front_camera.py to front_camera.cpython-310.pyc
+[0.556s] running install_data
+[0.556s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index
+[0.556s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index/resource_index
+[0.557s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index/resource_index/packages
+[0.557s] copying resource/front_tracking_node -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/ament_index/resource_index/packages
+[0.557s] copying package.xml -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/front_tracking_node
+[0.557s] creating /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/front_tracking_node/launch
+[0.557s] copying launch/front_camera.launch.py -> /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/share/front_tracking_node/launch
+[0.557s] running install_egg_info
+[0.558s] Copying build/front_tracking_node/front_tracking_node.egg-info to /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages/front_tracking_node-0.0.0-py3.10.egg-info
+[0.558s] running install_scripts
+[0.571s] Installing front_camera script to /home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/front_tracking_node
+[0.571s] writing list of installed files to '/home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/install.log'
+[0.586s] Invoked command in '/home/incsl-wego22/ws_capstone/src/front_tracking_node' returned '0': PYTHONPATH=/home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/incsl-wego22/ws_capstone/src/front_tracking_node/install/front_tracking_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/front_tracking_node build --build-base /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/build install --record /home/incsl-wego22/ws_capstone/src/front_tracking_node/build/front_tracking_node/install.log --single-version-externally-managed install_data
