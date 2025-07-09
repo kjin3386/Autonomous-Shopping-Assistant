@@ -10,7 +10,7 @@ You can view the demonstration video at the link above (Korean language).
 
 ## Overview
 
-SHOPILOT is the result of a capstone project focused on developing an autonomous shopping assistant robot. This repository contains the complete ROS2 source packages for the entire vehicle system, implementing an intelligent shopping cart that can navigate retail environments, assist customers with shopping tasks, and provide interactive AI-powered assistance.
+SHOPILOT is the result of a capstone project focused on developing an autonomous shopping assistant robot. This repository contains the complete ROS2 source packages for the entire vehicle system(except web pages and chat bot), implementing an intelligent shopping cart that can navigate retail environments, assist customers with shopping tasks, and provide interactive AI-powered assistance.
 
 
 ### Key Features
