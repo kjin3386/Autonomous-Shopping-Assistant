@@ -35,7 +35,7 @@ SHOPILOT is the result of a capstone project focused on developing an autonomous
 |-----------|-------|---------|
 | **Mobile Platform** | Scout-Mini | Autonomous navigation base |
 | **Main Computer** | Intel NUC | Control system and AI processing |
-| **Edge AI** | Jetson Orin Nano | Real-time camera processing |
+| **Sub Computer** | Jetson Orin Nano | Real-time camera processing |
 | **LiDAR** | 2D-RPLiDAR | SLAM and obstacle detection |
 | **Front Camera** | RealSense D457 | Human detection and interaction |
 | **Rear Camera** | RealSense D435i | Customer tracking and following |
