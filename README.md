@@ -5,7 +5,7 @@
 
 https://youtu.be/pP-fz-G6JYQ
 
-##**You can view the demonstration video at the link above (English Sub).**
+## You can view the demonstration video at the link above (English Sub).
 
 
 
