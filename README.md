@@ -9,8 +9,7 @@
 
 ## You can view the demonstration video at the link below (English Sub).
 https://youtu.be/pP-fz-G6JYQ
-https://youtu.be/pP-fz-G6JYQ
-https://youtu.be/pP-fz-G6JYQ
+
 
 
 
