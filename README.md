@@ -1,4 +1,7 @@
 # SHOPILOT - Autonomous Shopping Assistant
+https://youtu.be/pP-fz-G6JYQ 
+
+
 
 **A Smart Shopping Cart that Opens New Paths for Shopping**
 <img width="445" height="640" alt="Image" src="https://github.com/user-attachments/assets/68914d0c-6189-46b3-b56b-2f39da7f7563" />
